@@ -4,11 +4,17 @@
     <arg name="world_file" value="$(find autobots)/world/autobots.world" />
   </include>
   
-  <!--- Mapping -->
+  <!--- Mapping
 
   <include file="$(find rtabmap_ros)/launch/demo/demo_turtlebot_mapping.launch">
     <arg name="localization" value="false" />
     <arg name="simulation" value="true" />
+  </include>
+
+  -->
+
+  <include file="$(find turtlebot_gazebo)/launch/gmapping_demo.launch">
+    <arg name="custom_gmapping_launch_file" value="$(find autobots)/launch/kinect_gmapping.launch.xml" />
   </include>
 
 
