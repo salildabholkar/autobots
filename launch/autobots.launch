@@ -1,0 +1,18 @@
+<launch>
+
+  <include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
+    <arg name="world_file" value="$(find autobots)/world/autobots.world" />
+  </include>
+  
+  <!--- Mapping -->
+
+  <include file="$(find rtabmap_ros)/launch/demo/demo_turtlebot_mapping.launch">
+    <arg name="localization" value="false" />
+    <arg name="simulation" value="true" />
+  </include>
+
+
+  <!--- RViz  -->
+  <include file="$(find rtabmap_ros)/launch/demo/demo_turtlebot_rviz.launch" />
+
+</launch>

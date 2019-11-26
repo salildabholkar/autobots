@@ -1,0 +1,15 @@
+<package>
+  <description brief="autobots">
+
+     autobots
+
+  </description>
+  <author>Salil</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/autobots</url>
+  <depend package="turtlebot_gazebo"/>
+
+</package>
+
+
