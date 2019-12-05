@@ -1,21 +1,25 @@
 <launch>
-
   <!--- launch -->
   <include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
     <arg name="world_file" value="$(find autobots)/world/autobots.world" />
   </include>
 
 
-  <!--- Gmapping with custom config 
+  <!--- Gmapping with custom config. Disable when using amcl
   <include file="$(find autobots)/launch/custom_kinect_gmapping.launch.xml"/>
   -->
 
-  <!--- AMCL. Disable gmapping when using -->
+  <!--- AMCL. Disable when using gmapping -->
   <include file="$(find turtlebot_gazebo)/launch/amcl_demo.launch">
     <arg name="map_file" value="$(find autobots)/world/map.yaml" />
   </include>
 
   <!--- RViz -->
-  <node pkg="rviz" name="rviz" type="rviz" args="-d $(find autobots)/config/config.rviz" />
- -->
+    <node pkg="rviz" name="rviz" type="rviz" args="-d $(find autobots)/config/config.rviz" />
+
+  <!--- Find Object -->
+  <include file="$(find autobots)/launch/recognition.launch" />
+
+  <node pkg="autobots" name="move_bot" type="move_bot.py" />
+
 </launch>
