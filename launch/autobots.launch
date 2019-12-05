@@ -20,6 +20,6 @@
   <!--- Find Object -->
   <include file="$(find autobots)/launch/recognition.launch" />
 
-  <node pkg="autobots" name="move_bot" type="move_bot.py" />
+<!--  <node pkg="autobots" name="move_bot" type="move_bot.py" />-->
 
 </launch>

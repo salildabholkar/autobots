@@ -11,9 +11,9 @@ from geometry_msgs.msg import Pose, Point, Quaternion, PoseWithCovarianceStamped
 from gazebo_msgs.srv import DeleteModel
 from gazebo_msgs.msg import ModelStates
 from nav_msgs.msg import Odometry
+from objects import all_objects, bins
 import numpy as np
 import math
-from objects import all_objects
 
 
 class Move():
@@ -21,6 +21,7 @@ class Move():
         rospy.init_node('move_bot')
 
         self.reached = False
+        self.bin = ''
 
         # tell the action client that we want to spin a thread by default
         self.move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
@@ -28,7 +29,7 @@ class Move():
 
         # allow up to 5 seconds for the action server to come up
         self.move_base.wait_for_server(rospy.Duration(5))
-        self.next = ''
+        self.picked = False
 
         self.all_objects = all_objects
 
@@ -63,8 +64,15 @@ class Move():
             self.all_objects.pop(nearest)
             self.reached = False
 
+        elif self.picked:
+            rospy.loginfo('Dropping to: ' + self.bin)
+            self.goto(bins[self.bin])
+            self.picked = False
+
         elif dist < 1:
             rospy.loginfo('Picked up: ' + name)
+            self.picked = True
+            self.bin = self.all_objects[nearest][3]
             self.all_objects.pop(nearest)
             self.del_model(id)
             if elems == 1:
